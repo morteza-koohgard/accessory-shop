@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,35 @@ class UserTest extends TestCase
                 'email',
                 'token'
             ]
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'test user',
+            'email' => 'test@test.com'
+        ]);
+    }
+
+    public function test_login_user_api(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => 'password'
+        ])->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'message',
+            'data' => [
+                'name',
+                'email',
+                'token'
+            ]
+        ]);
+
+        $this->assertDatabaseHas('personal_access_tokens', [
+            'tokenable_id' => $user->id,
+            'name' => 'auth_token'
         ]);
     }
 }
