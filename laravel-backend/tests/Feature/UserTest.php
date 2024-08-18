@@ -32,15 +32,17 @@ class UserTest extends TestCase
     {
         $response = $this->post('/api/register', [
             'name' => 'test user',
-            'email' => 'test user email',
-            'password' => 'test user password'
+            'email' => 'test@test.com',
+            'password' => 'password'
         ])->assertStatus(201);
 
         $response->assertJsonStructure([
+            'message',
             'data' => [
                 'name',
                 'email',
-            ],
+                'token'
+            ]
         ]);
     }
 }
