@@ -3,9 +3,11 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
+use Str;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -73,6 +75,44 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('personal_access_tokens', [
             'tokenable_id' => $user->id,
             'name' => 'auth_token'
+        ]);
+    }
+
+    public function test_send_reset_password_api(): void
+    {
+        $user = User::factory()->create();
+
+        $response = $this->post('/api/send-reset-email', [
+            'email' => $user->email
+        ])->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'message'
+        ]);
+
+        $this->assertDatabaseHas('password_reset_tokens', [
+            'email' => $user->email
+        ]);
+    }
+
+    public function test_reset_password_api(): void
+    {
+        $user = User::factory()->create();
+        $token = Str::random(60);
+
+        DB::table('password_reset_tokens')->insert([
+            'email' => $user->email,
+            'token' => Hash::make($token)
+        ]);
+
+        $response = $this->post('/api/reset-password', [
+            'email' => $user->email,
+            'password' => Str::random(10),
+            'token' => $token
+        ])->assertStatus(200);
+
+        $response->assertJsonStructure([
+            'message'
         ]);
     }
 }
