@@ -27,13 +27,13 @@ class UserRolesTest extends TestCase
         $token = $user->createToken('auth_token')->plainTextToken;
         $this->withHeaders([
             'Authorization' => "Bearer {$token}",
-        ])->post('/api/admin/dashboard')->assertStatus(403);
+        ])->get('/api/admin/dashboard')->assertStatus(403);
 
         $adminRole = Role::where('name', 'admin')->first();
         $user->roles()->attach($adminRole->id);
 
         $this->withHeaders([
             'Authorization' => "Bearer {$token}",
-        ])->post('/api/admin/dashboard')->assertStatus(200);
+        ])->get('/api/admin/dashboard')->assertStatus(200);
     }
 }
