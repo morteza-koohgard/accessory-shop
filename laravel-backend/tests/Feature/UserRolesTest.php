@@ -21,16 +21,19 @@ class UserRolesTest extends TestCase
         $this->assertTrue($user->hasRole('admin'));
     }
 
-    /** @test */
-    public function a_user_without_roles_cannot_access_protected_routes()
+    public function test_a_user_without_roles_cannot_access_protected_routes(): void
     {
         $user = User::factory()->create();
         $token = $user->createToken('auth_token')->plainTextToken;
-
-        $response = $this->withHeaders([
+        $this->withHeaders([
             'Authorization' => "Bearer {$token}",
-        ])->post('/admin-only-route');
+        ])->post('/api/admin/dashboard')->assertStatus(403);
 
-        $response->assertStatus(403);
+        $adminRole = Role::where('name', 'admin')->first();
+        $user->roles()->attach($adminRole->id);
+
+        $this->withHeaders([
+            'Authorization' => "Bearer {$token}",
+        ])->post('/api/admin/dashboard')->assertStatus(200);
     }
 }
