@@ -78,6 +78,23 @@ class UserTest extends TestCase
         ]);
     }
 
+    public function test_logout_api(): void
+    {
+        $user = User::factory()->create();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $this->withHeaders([
+            'Authorization' => "Bearer {$token}",
+        ])->post('/api/logout')->assertStatus(200)->assertJson([
+            'message' => 'Successfully logged out'
+        ]);
+
+        // check remove user tokens after logout
+        $this->assertDatabaseMissing('personal_access_tokens', [
+            'tokenable_id' => $user->id
+        ]);
+    }
+
     public function test_send_reset_password_api(): void
     {
         $user = User::factory()->create();
