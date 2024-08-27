@@ -18,4 +18,9 @@ class CategoryFeature extends Model
     {
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
+
+    public function featureValue()
+    {
+        return $this->hasMany(ProductFeatureValue::class, 'feature_id');
+    }
 }

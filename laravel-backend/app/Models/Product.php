@@ -27,4 +27,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductGallery::class);
     }
+
+    public function features()
+    {
+        return $this->hasMany(ProductFeatureValue::class);
+    }
 }
