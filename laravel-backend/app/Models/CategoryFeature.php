@@ -12,6 +12,9 @@ class CategoryFeature extends Model
     protected $fillable = [
         'category_id',
         'feature_id',
+        'name',
+        'type',
+        'options',
     ];
 
     public function category()

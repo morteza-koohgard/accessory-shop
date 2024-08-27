@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('product_categories')->onDelete('cascade');
             $table->string('name')->uniqid();
             $table->string('type')->enum('text', 'number', 'select', 'checkbox');
+            $table->json('options')->nullable();
             $table->timestamps();
         });
     }
