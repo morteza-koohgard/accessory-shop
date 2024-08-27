@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\CategoryFeature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\ProductCategory;
@@ -27,5 +28,14 @@ class ProductCategoryTest extends TestCase
         $this->assertCount(2, $parent->children);
         $this->assertEquals($child1->name, $parent->children[0]->name);
         $this->assertEquals($child2->name, $parent->children[1]->name);
+    }
+
+    public function test_is_has_features()
+    {
+        $category = ProductCategory::factory()->create();
+        $feature = CategoryFeature::factory()->create(['category_id' => $category->id]);
+
+        $this->assertCount(1, $category->features);
+        $this->assertEquals($feature->name, $category->features[0]->name);
     }
 }

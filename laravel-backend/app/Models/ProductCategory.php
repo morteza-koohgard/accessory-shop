@@ -20,4 +20,9 @@ class ProductCategory extends Model
     {
         return $this->hasMany(ProductCategory::class, 'parent_id');
     }
+
+    public function features()
+    {
+        return $this->hasMany(CategoryFeature::class, 'category_id');
+    }
 }
