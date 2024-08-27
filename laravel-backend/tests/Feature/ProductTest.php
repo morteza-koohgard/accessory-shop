@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Models\CategoryFeature;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductFeatureValue;
 use App\Models\ProductGallery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -51,5 +53,19 @@ class ProductTest extends TestCase
 
         $this->assertCount(3, $product->galleries);
         $this->assertInstanceOf(ProductGallery::class, $product->galleries->first());
+    }
+
+    public function test_it_can_has_product_feature()
+    {
+        $product = Product::factory()->create();
+        $category_feature = CategoryFeature::factory()->create(['category_id' => $product->category->id, 'type' => 'text']);
+        $feature = ProductFeatureValue::create([
+            'product_id' => $product->id,
+            'feature_id' => $category_feature->id,
+            'value' => 'Sample Value',
+        ]);
+
+        $this->assertCount(1, $product->features);
+        $this->assertInstanceOf(ProductFeatureValue::class, $product->features->first());
     }
 }
