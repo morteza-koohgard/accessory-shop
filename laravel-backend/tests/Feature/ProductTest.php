@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductGallery;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -41,5 +42,14 @@ class ProductTest extends TestCase
 
         $this->assertInstanceOf(ProductCategory::class, $product->category);
         $this->assertEquals($category->id, $product->category->id);
+    }
+
+    public function test_it_can_have_multiple_galleries()
+    {
+        $product = Product::factory()->create();
+        $galleries = ProductGallery::factory()->count(3)->create(['product_id' => $product->id]);
+
+        $this->assertCount(3, $product->galleries);
+        $this->assertInstanceOf(ProductGallery::class, $product->galleries->first());
     }
 }

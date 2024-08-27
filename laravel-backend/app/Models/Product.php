@@ -22,4 +22,9 @@ class Product extends Model
     {
         return $this->belongsTo(ProductCategory::class);
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(ProductGallery::class);
+    }
 }
