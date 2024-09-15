@@ -1,0 +1,3 @@
+.main-header {
+    @apply text-sky-700 dark:text-sky-400 text-xl sm:text-2xl lg:text-4xl font-bold;
+}
