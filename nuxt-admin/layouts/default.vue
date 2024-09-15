@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-50 dark:bg-gray-800 min-h-screen">
+    <div class="bg-sky-50 dark:bg-sky-950 min-h-screen">
         <!-- header section -->
         <LayoutsHeaderSection />
         <!-- left dashboard panel -->
