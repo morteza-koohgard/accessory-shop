@@ -1,5 +1,5 @@
 <template>
-    <UToggle color="gray" :ui="{ inactive: 'dark:bg-gray-400' }" @click="toggle" size="lg" on-icon="i-heroicons-sun" off-icon="i-heroicons-moon" :model-value="theme" />
+    <UToggle color="sky" :ui="{ inactive: 'dark:bg-sky-400' }" @click="toggle" size="lg" on-icon="i-heroicons-sun" off-icon="i-heroicons-moon" :model-value="theme" />
 </template>
 
 <script setup>
