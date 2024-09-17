@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full flex justify-between bg-gradient-to-b from-sky-300 to-sky-50 dark:from-sky-800 dark:to-sky-950 items-center p-4">
+    <div class="w-full flex justify-between bg-gradient-to-b from-sky-50 to-sky-300 dark:from-sky-950 dark:to-sky-800 items-center p-4">
         <!-- left section -->
         <div class="main-header">
             Admin Panel
