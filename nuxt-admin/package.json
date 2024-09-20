@@ -12,7 +12,10 @@
   "dependencies": {
     "@heroicons/vue": "^2.1.5",
     "@nuxt/ui": "^2.18.4",
+    "@pinia/nuxt": "^0.5.4",
     "nuxt": "^3.13.0",
-    "vue": "latest"
+    "pinia": "^2.2.2",
+    "pinia-plugin-persistedstate": "^4.0.2",
+    "vue": "3.4.38"
   }
 }
