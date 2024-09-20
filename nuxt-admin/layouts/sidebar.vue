@@ -10,7 +10,9 @@
                     <layoutsSidebar />
                 </div>
                 <!-- content -->
-                <div></div>
+                <div>
+                    <slot />
+                </div>
             </div>
         </div>
     </div>
